@@ -10,6 +10,7 @@ module.exports = [
         'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
         more_images:'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
         inventory:0,
+        price:40.00
     },
     {
         title: 'Lovely cup',
@@ -22,6 +23,7 @@ module.exports = [
           'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
           more_images:'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
           inventory:0,
+          price:15.00
       },
      
     
