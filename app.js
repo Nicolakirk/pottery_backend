@@ -1,12 +1,14 @@
 const express = require("express");
 const app = express();
 const cors = require('cors');
-const { getProducts } = require("./controllers/product_controllers");
+const { getProducts, getProductsbyId, postProducts } = require("./controllers/product_controllers");
 const { badRoute, handleCustomErrors, handlePSQL400s, handle500Statuses } = require("./controllers/error_controllers");
 app.use(cors());
 app.use(express.json());
 
 app.get ('/api/products', getProducts);
+app.get('/api/products/:product_id', getProductsbyId)
+app.post('/api/product', postProducts)
 
 app.use(badRoute);
 app.use(handleCustomErrors);
