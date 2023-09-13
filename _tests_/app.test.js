@@ -119,7 +119,7 @@ const inputProduct = {
     .send(inputProduct)
     .expect(201)
     .then(({ body })=>{
-       console.log(body)
+      
         const { product } = body;
         expect(product).toBeInstanceOf(Object);
         expect(product).toMatchObject({
@@ -139,5 +139,177 @@ const inputProduct = {
         })
     })
         })
+        test("status 400, mssimg values on post ",()=>{
+            const inputProduct = {
+                title: "Brown vase",
+                
+                author:"Sammy",
+                body:" This a great brown vase.",
+                topic:"vases",
+            
+                article_img_url:"https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700",
+                more_images:'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
+                inventory:5, 
+            }
+            return request(app)
+            .post("/api/product")
+            .send(inputProduct)
+            .expect(400)
+            .then(({body})=>{
+                expect(body.msg).toBe("Bad Request");
+            })
 
+        })
+
+       });
+       describe("get /api/users",()=>{
+       test("status 200, responds with an array of user objects",()=>{
+        return request(app)
+        .get("/api/users")
+        .expect(200)
+        .then (({body}) =>{
+            const { users } = body
+            
+            expect(users).toBeInstanceOf(Array);
+            expect(users).toHaveLength(4)
+            users.forEach((user)=>{
+                expect(user).toMatchObject({
+                    username: expect.any(String),
+                         name: expect.any(String),
+                         avatar_url:expect.any(String),
+                })
+            })
+        })
        })
+       })
+
+       describe ("get/api/users/username",()=>{
+        test("status 200, responds with the user for the name requested",()=>{
+            return request(app)
+            .get("/api/users/butter_bridge")
+            .expect(200)
+            .then(({body})=>{
+                const { user } = body;
+                expect(user).toBeInstanceOf(Object);
+                expect(user).toMatchObject({
+                    username:'butter_bridge',
+                    name: 'jonny',
+                    avatar_url:
+                      'https://www.healthytherapies.com/wp-content/uploads/2016/06/Lime3.jpg'
+                })
+            })
+        })
+       })
+       describe("get /api/admins",()=>{
+        test("status 200, responds with an array of admin objects",()=>{
+         return request(app)
+         .get("/api/admins")
+         .expect(200)
+         .then (({body}) =>{
+             const { admins } = body
+            
+             expect(admins).toBeInstanceOf(Array);
+             expect(admins).toHaveLength(2)
+             admins.forEach((admin)=>{
+                 expect(admin).toMatchObject({
+                     adminname: expect.any(String),
+                          fullname: expect.any(String),
+                         
+                 })
+             })
+         })
+        })
+        })
+        describe ("get/api/admins/adminname",()=>{
+            test("status 200, responds with the admin for the name requested",()=>{
+                return request(app)
+                .get("/api/admins/nic")
+                .expect(200)
+                .then(({body})=>{
+                    const { admin } = body;
+                    expect(admin).toBeInstanceOf(Object);
+                    expect(admin).toMatchObject({
+                        adminname:'nic',
+                        fullname: 'Nicola Kirk'
+                       
+                    })
+                })
+            })
+           })
+           describe("ORDER asc/desc for sort_by queries on /api/products", () => {
+            it("200: returns array of products in decending order for specified colum", () => {
+              return request(app)
+                .get("/api/products?sort_by=price&&order=desc")
+                .expect(200)
+                .then(({ body }) => {
+                  const { products} = body;
+                  expect(products).toBeInstanceOf(Array);
+                  expect(products).toHaveLength(2);
+                  expect(products).toBeSortedBy("price", { descending: true });
+                });
+            });
+            it("200: returns array of products in ascending order for specified colum", () => {
+                return request(app)
+                  .get("/api/products?sort_by=author&&order=asc")
+                  .expect(200)
+                  .then(({ body }) => {
+                    const { products} = body;
+                    expect(products).toBeInstanceOf(Array);
+                    expect(products).toHaveLength(2);
+                    expect(products).toBeSortedBy("author", { ascending: true });
+                  });
+              });
+           
+        });
+
+        test("status 200 - changes price of a products correctly and returns the updated product ", () => {
+            const update = { price: 30.00 };
+            return request(app)
+                .patch("/api/products/1")
+                .send(update)
+                .expect(201)
+                .then(({ body }) => {
+                   const { product } = body;
+                    
+                    expect(product).toMatchObject({
+                        title: 'Lovely Vase',
+                        topic: 'vases',
+                        author: 'Sammy',
+                        body: 'This isa great handmade vase.',
+                        created_at:expect.any(String),
+                        likes: 0,
+                        article_img_url:
+                          'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
+                          more_images:'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
+                          inventory:0,
+                          price:30.00
+                       
+                    });
+                })
+            })
+
+            test("status 200 - changes price of a products correctly and returns the updated product ", () => {
+                const update = { inventory: 5 };
+                return request(app)
+                    .patch("/api/products/1")
+                    .send(update)
+                    .expect(201)
+                    .then(({ body }) => {
+                       const { product } = body;
+                      
+                        expect(product).toMatchObject({
+                            title: 'Lovely Vase',
+                            topic: 'vases',
+                            author: 'Sammy',
+                            body: 'This isa great handmade vase.',
+                            created_at:expect.any(String),
+                            likes: 0,
+                            article_img_url:
+                              'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
+                              more_images:'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
+                              inventory:5,
+                              price:30.00
+                           
+                        });
+                    })
+                })
