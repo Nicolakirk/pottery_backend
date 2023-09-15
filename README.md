@@ -20,7 +20,9 @@ get /api/users
 get /api/users/:username
 get api/admins
 get /api/admins/:adminname
-
+patch /api/products/:product_id
+patch /api/productsupdate/:product_id
+get /api/categories
 
 
 How to install
@@ -50,7 +52,7 @@ You will also see any errors in the console.
 
 Features
 view a list of all products
-view a list of all topics
+view a list of all categories
 view an individual product
 
 sort products by: date created, price etc

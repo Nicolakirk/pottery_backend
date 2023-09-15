@@ -1,4 +1,4 @@
-const { fetchProducts, selectProuctsById, insertProduct, selectAllProducts, checkTopicExists, changeProductDetails } = require("../models/product_model");
+const { fetchProducts, selectProuctsById, insertProduct, selectAllProducts, checkTopicExists, changeProductDetails, changeAllProductDetails, removeProductById } = require("../models/product_model");
 
 exports.getProducts = (req, res) =>{
     fetchProducts().then((output) => {
@@ -57,11 +57,11 @@ next(err);
 
 
      exports.patchPriceForProducts = (req, res, next)=>{
-      
+     
       const { product_id }= req.params
-      const { price  } = req.body
+      const productBody = req.body
 
-   changeProductDetails(product_id, price)
+   changeProductDetails(product_id, productBody)
    .then((product)=>{
     res.status(201).send({ product })
     
@@ -69,4 +69,40 @@ next(err);
    .catch((err)=>{
     next(err);
    })
-     }
+     };
+
+
+     exports.patchAllForProducts = (req, res, next)=>{
+     
+      const { product_id }= req.params
+   
+    
+    const { title } = req.body
+  
+    const { body } = req.body
+    const { article_img_url } = req.body
+    const { more_images }= req.body
+    const { inventory }= req.body
+    const  { price } = req.body
+   
+
+   changeAllProductDetails(product_id, title,body,article_img_url,more_images, inventory, price )
+   .then((product)=>{
+    res.status(201).send({ product })
+    
+   })
+   .catch((err)=>{
+    next(err);
+   })
+     };
+
+     exports.deleteProduct = (req, res, next) =>{
+      const { product_id }= req.params;
+  
+  removeProductById(product_id).then((products)=>{
+      res.status(204).send({ products});
+  })
+  .catch((err)=>{
+      next(err);
+  })
+  };

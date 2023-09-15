@@ -288,7 +288,7 @@ const inputProduct = {
                 })
             })
 
-            test("status 200 - changes price of a products correctly and returns the updated product ", () => {
+            test("status 200 - changes inevntory of a products correctly and returns the updated product ", () => {
                 const update = { inventory: 5 };
                 return request(app)
                     .patch("/api/products/1")
@@ -308,8 +308,118 @@ const inputProduct = {
                               'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
                               more_images:'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
                               inventory:5,
-                              price:30.00
+                              price:40.00
                            
                         });
                     })
                 })
+                test("status 200 - changes title of a product correctly and returns the updated product ", () => {
+                    const update = { title:"blue vase" };
+                    return request(app)
+                        .patch("/api/products/1")
+                        .send(update)
+                        .expect(201)
+                        .then(({ body }) => {
+                           const { product } = body;
+                          
+                            expect(product).toMatchObject({
+                                title: 'blue vase',
+                                topic: 'vases',
+                                author: 'Sammy',
+                                body: 'This isa great handmade vase.',
+                                created_at:expect.any(String),
+                                likes: 0,
+                                article_img_url:
+                                  'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
+                                  more_images:'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
+                                  inventory:0,
+                                  price:40.00
+                               
+                            });
+                        })
+                    })
+                    test("status 200 - changes description of a product correctly and returns the updated product ", () => {
+                        const update = { body:"A handmdade vase" };
+                        return request(app)
+                            .patch("/api/products/1")
+                            .send(update)
+                            .expect(201)
+                            .then(({ body }) => {
+                               const { product } = body;
+                              
+                                expect(product).toMatchObject({
+                                    title: 'A handmdade vase',
+                                    topic: 'vases',
+                                    author: 'Sammy',
+                                    body: 'This isa great handmade vase.',
+                                    created_at:expect.any(String),
+                                    likes: 0,
+                                    article_img_url:
+                                      'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
+                                      more_images:'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
+                                      inventory:0,
+                                      price:40.00
+                                   
+                                });
+                            })
+                        })
+
+                        test("status 200 - changes all the keys of a product correctly and returns the updated product ", () => {
+                            const update = { title: 'A vase',
+                           
+                            body: 'This is a great vase.',
+                            article_img_url:
+                              'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
+                              more_images:'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
+                              inventory:0,
+                              price:5.00 };
+                            return request(app)
+                                .patch("/api/productsupdate/1")
+                                .send(update)
+                                .expect(201)
+                                .then(({ body }) => {
+                                   const { product } = body;
+                                  
+                                    expect(product).toMatchObject({
+                                        title: 'A vase',
+                                        topic: 'vases',
+                                        author: 'Sammy',
+                                        body: 'This is a great vase.',
+                                        created_at:expect.any(String),
+                                        likes: 0,
+                                        article_img_url:
+                                          'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
+                                          more_images:'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
+                                          inventory:0,
+                                          price:5.00
+                                       
+                                    });
+                                })
+                            })
+                            describe("get an arrray of categories",()=>{
+                                test("returns an array of all categories",()=>{
+                                    return request(app)
+                                    .get("/api/categories")
+                                    .expect(200)
+                                    .then(({body})=>{
+                                        const { categories } = body 
+                                     console.log(body)
+                                        expect(categories).toBeInstanceOf(Array);
+                                        expect(categories).toHaveLength(3);
+                                       categories.forEach((category)=>{
+                                            expect(category).toMatchObject({
+                                                description:expect.any(String),
+                                                slug:expect.any(String)
+                                            })
+                                        })
+                                    })
+                                })
+                            })
+                            describe(". DELETE /api/products/:product_id",()=>{
+                                test("Status 204 ,deletes product and returns 204 status, checks the array has removed one comment",()=>{
+                                    return request(app)
+                                    .delete("/api/products/1")
+                                    .expect(204);
+                                        
+                                })
+                            })

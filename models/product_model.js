@@ -117,25 +117,38 @@ exports.checkTopicExists = (topic) => {
     })
   };
 
-  exports.changeProductDetails = (id, price) =>{
+  exports.changeProductDetails = (id, productBody) =>{
 
-
+   
     const  product_id  = id
-    const new_price  = price
-    // const { new_description } = description
-    // const { new_title } = title
-    // const { new_inventory } = inventory
-    // const { new_article_img_url } = article_img_url
-    // const { new_more_images } = more_images
-    // const { new_topic } = topic
 
     const firstPsqlQuery = `SELECT * from products WHERE product_id =$1;`
-
+  
     const priceQuery = `
     UPDATE products 
     SET price  = $2
     WHERE product_id = $1
     RETURNING *;`
+
+    const inventoryQuery = `
+    UPDATE products 
+    SET inventory  = $2
+    WHERE product_id = $1
+    RETURNING *;`
+
+    const titleQuery = `
+    UPDATE products 
+    SET title = $2
+    WHERE product_id = $1
+    RETURNING *;`
+
+    const bodyQuery = `
+    UPDATE products 
+    SET body = $2
+    WHERE product_id = $1
+    RETURNING *;`
+
+
 
     return db.query(firstPsqlQuery,[product_id ])
     .then((results)=>{
@@ -143,11 +156,81 @@ if ( results.rows.length === 0){
   return Promise.reject({
     status:404, msg:"Not found"
   })
-} else {
-  return db.query(priceQuery,[product_id,new_price])
+} if (results.rows.length !== 0 && "price"in productBody ) {
+  const { price } = productBody
+  return db.query(priceQuery,[product_id,price])
+
+}if (results.rows.length !== 0 && "inventory"in productBody ) {
+  const { inventory } = productBody
+  return db.query(inventoryQuery,[product_id,inventory])
 }
+if (results.rows.length !== 0 && "title"in productBody ) {
+  const { title} = productBody
+  return db.query(titleQuery,[product_id,title])
+} 
+if (results.rows.length !== 0 && "body"in productBody ) {
+  const { body } = productBody
+  return db.query(titleQuery,[product_id,body])
+}
+
     }).then((results)=>{
       
       return results.rows[0]
     })
   }
+
+
+  exports.changeAllProductDetails = (id, title, body, article_img_url, more_images, inventory, price) =>{
+
+  
+   
+    const firstPsqlQuery = `SELECT * from products WHERE product_id =$1;`
+
+    const secondQuery = `
+    UPDATE products 
+    SET 
+    title = $2,
+  body = $3,
+     article_img_url = $4,
+    more_images = $5,
+    inventory = $6,
+   price = $7
+    WHERE product_id = $1
+    RETURNING *;`
+    return db.query(firstPsqlQuery,[id ])
+    .then((results)=>{
+if ( results.rows.length === 0){
+  return Promise.reject({
+    status:404, msg:"Not found"
+  })
+} else {
+  return db.query(secondQuery,[id,title,body,article_img_url,more_images, inventory, price])
+  .then((results)=>{
+    return results.rows[0]
+  })
+}
+})
+  };
+
+
+  exports.removeProductById = (id) =>{
+      
+    const psqlDeleteQuery = ` 
+    DELETE FROM products 
+    WHERE product_id = $1; `
+   
+    const firstPsqlQuery = `SELECT * FROM products WHERE product_id = $1 ;`
+    
+    return db.query(firstPsqlQuery,[id] )
+    .then((results) => {
+       
+        if (results.rows.length === 0){
+            return Promise.reject({ status: 404, msg: "Not found" });
+        } else { return db.query(psqlDeleteQuery, [id])
+            
+        
+        }}).then((results) =>{
+
+            return results
+        })
+        } 

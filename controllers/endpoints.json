@@ -1,0 +1,104 @@
+{
+    "GET /api": {
+      "description": "serves up a json representation of all the available endpoints of the api"
+    },
+    "GET /api/categories": {
+      "description": "serves an array of all categories",
+      "queries": [],
+      "exampleResponse": {
+        "categories": [{ "slug": "vases", "description": "lovely vases" }]
+      }
+    },
+    "GET /api/products":{
+        "description": "serves an array of all products",
+    "queries": ["author", "topic", "sort_by", "order"],
+    "exampleResponse": {
+      "products": [
+        {
+            "title": "Lovely Vase",
+     " topic": "vases",
+      "author": "Sammy",
+      "body": "This is a great handmade vase.",
+      "created_at": "1604728980000",
+      "likes": "0",
+      "article_img_url":
+        "https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700",
+        "more_images":"https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700",
+        "inventory":"0",
+        "price":"40.00"
+        }
+      ]
+    },
+    "GET /api/articles/article_id": {
+        "description": "serves an object by the article_id",
+        "queries": ["1", "2", "3"],
+        "exampleResponse": {
+        "product": {
+            "title": "Lovely Vase",
+     " topic": "vases",
+      "author": "Sammy",
+      "body": "This is a great handmade vase.",
+      "created_at": "1604728980000",
+      "likes": "0",
+      "article_img_url":
+        "https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700",
+        "more_images":"https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700",
+        "inventory":"0",
+        "price":"40.00"
+        }}
+}
+    },"GET /users": {
+        "description": "serves an array of all  users",
+       " queries" : [],
+        "exampleResponse": {
+          "user": 
+            {
+              "user_id": 1,
+             "username": "grumpy19",
+         "name": "Paul Grump",
+          "avatar_url":
+            "https://vignette.wikia.nocookie.net/mrmen/images/7/78/Mr-Grumpy-3A.PNG/revision/latest?cb=20170707233013"
+            }
+          
+        }
+      },
+      "GET /admins": {
+        "description": "serves an array of all  users",
+       " queries" : [],
+        "exampleResponse": {
+          "admin": 
+            {
+              "admin_id": 1,
+             "adminname": "Sammy",
+         "fullname": "Sam McLeod"
+         
+            }
+          
+        }
+      },
+      "DELETE/api/products/:product_id": {
+        "description": "deletes a product by the product_id",
+        "queries": [1.2,3,4],
+        "exampleResponse": {
+          "product": []
+        }
+      },
+      "PATCH/api/products/product_id": {
+        "description": "Amends all keys for the products by product_id",
+        "queries": [1.2,10,20],
+        "exampleResponse": {
+            "product": {
+                "title": "Lovely Vase",
+         " topic": "vases",
+          "author": "Sammy",
+          "body": "This is a great handmade vase.",
+          "created_at": "1604728980000",
+          "likes": "0",
+          "article_img_url":
+            "https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700",
+            "more_images":"https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700",
+            "inventory":"0",
+            "price":"40.00"
+            }}
+}
+}
