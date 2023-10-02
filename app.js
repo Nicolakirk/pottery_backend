@@ -1,14 +1,18 @@
 const express = require("express");
 const app = express();
 const cors = require('cors');
+const stripe = require("stripe")("sk_test_51NwnyALSqeSGrFJiMVGidHVFXxvEQ6ARdL2PNpE0HaWRr0axWPw3DHRz6FEeiSG0vZrc1Frxk0VKpwErNInRtQWg00DOGSNqCf")
+
 const { getProducts, getProductsbyId, postProducts, getAllProducts, patchPriceForProducts, patchAllForProducts, deleteProduct } = require("./controllers/product_controllers");
 const { badRoute, handleCustomErrors, handlePSQL400s, handle500Statuses } = require("./controllers/error_controllers");
 const { getUsers, getUsersById } = require("./controllers/user_controller");
 const { getAdmins, getAdminsById } = require("./controllers/admin_controllers");
 const { getCategories } = require("./controllers/category_controllers");
 const { endpoints } = require("./controllers/api_controller");
+const { getCheckout } = require("./controllers/checkout_controller");
 app.use(cors());
 app.use(express.json());
+app.use(express.static("public"));
 
 app.get('/api', endpoints)
 app.get ('/api/products', getAllProducts);
@@ -27,5 +31,6 @@ app.use(badRoute);
 app.use(handleCustomErrors);
 app.use(handlePSQL400s);
 app.use(handle500Statuses);
+app.post("/checkout", getCheckout)
 
 module.exports = app;
