@@ -27,10 +27,12 @@ app.patch("/api/products/:product_id", patchPriceForProducts)
 app.patch("/api/productsupdate/:product_id", patchAllForProducts)
 app.get("/api/categories", getCategories)
 app.delete("/api/products/:product_id", deleteProduct)
+app.post("/checkout", getCheckout)
+
 app.use(badRoute);
 app.use(handleCustomErrors);
 app.use(handlePSQL400s);
 app.use(handle500Statuses);
-app.post("/checkout", getCheckout)
+
 
 module.exports = app;

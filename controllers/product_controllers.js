@@ -25,7 +25,7 @@ next(err);
 
     exports.postProducts = (req,res,next)=>{
 
-
+console.log(req.body)
       const productBody = req.body;
     
 

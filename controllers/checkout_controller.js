@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-exports.getCheckout = async (req, res, next) =>{
+exports.getCheckout = async (req, res) =>{
     
     console.log(req.body)
 
@@ -28,6 +28,7 @@ exports.getCheckout = async (req, res, next) =>{
         url:session_url
 
     }))
+    
 }
 app.listen(4000, () => console.log("listing port 400"))
 

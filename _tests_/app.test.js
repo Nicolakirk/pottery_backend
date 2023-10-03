@@ -44,7 +44,7 @@ describe("GET/api/products", () => {
   describe("get/api/products/:product_id", () =>{
     test("status 200 - returns a product object correctly based on an id ", () => {
         return request(app)
-            .get('/api/products/1')
+            .get('/api/products/price_1Nwo6FLSqeSGrFJihDSgcK47')
             .expect(200)
             .then(({ body }) => {
                 
@@ -54,7 +54,7 @@ describe("GET/api/products", () => {
                 expect(product).toMatchObject({
                    title: 'Lovely Vase',
                    author : 'Sammy',
-                  product_id : 1,
+                  product_id : 'price_1Nwo6FLSqeSGrFJihDSgcK47',
                     body:"This isa great handmade vase.",
                   topic: "vases",
                 likes:0,
@@ -83,9 +83,9 @@ describe("GET/api/products", () => {
             test("status 400 - requests id that doesnt exist with string parameter/wrong data type", () => {
                 return request(app)
                 .get("/api/products/doesntexist")
-               .expect(400)
+               .expect(404)
                .then(({ body }) => {
-                expect(body).toEqual({ msg: "Bad Request" });
+                expect(body).toEqual({ msg: "Product can not be found" });
                  });
    
        });
@@ -103,12 +103,12 @@ describe("GET/api/products", () => {
        describe("POST /api/products", ()=>{
         test("201, post request, adds a product to the product list and returns the newly added product",()=>{
 const inputProduct = {
+    product_id:"price_1Nwo6FLSqeSGrFJihDSgcK48",
     title: "Brown vase",
     
     author:"Sammy",
     body:" This a great brown vase.",
     topic:"vases",
-
     article_img_url:"https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700",
     more_images:'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
     inventory:5,
@@ -123,11 +123,13 @@ const inputProduct = {
         const { product } = body;
         expect(product).toBeInstanceOf(Object);
         expect(product).toMatchObject({
-            product_id:expect.any(Number),
+            
             likes:0,
             created_at:expect.any(String),
             title: "Brown vase",
+           
     topic:"vases",
+product_id:"price_1Nwo6FLSqeSGrFJihDSgcK48",
     author:"Sammy",
     body:" This a great brown vase.",
     article_img_url:"https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700",
@@ -265,7 +267,7 @@ const inputProduct = {
         test("status 200 - changes price of a products correctly and returns the updated product ", () => {
             const update = { price: 30.00 };
             return request(app)
-                .patch("/api/products/1")
+                .patch("/api/products/price_1Nwo6FLSqeSGrFJihDSgcK47")
                 .send(update)
                 .expect(201)
                 .then(({ body }) => {
@@ -291,7 +293,7 @@ const inputProduct = {
             test("status 200 - changes inevntory of a products correctly and returns the updated product ", () => {
                 const update = { inventory: 5 };
                 return request(app)
-                    .patch("/api/products/1")
+                    .patch("/api/products/price_1Nwo6FLSqeSGrFJihDSgcK47")
                     .send(update)
                     .expect(201)
                     .then(({ body }) => {
@@ -316,7 +318,7 @@ const inputProduct = {
                 test("status 200 - changes title of a product correctly and returns the updated product ", () => {
                     const update = { title:"blue vase" };
                     return request(app)
-                        .patch("/api/products/1")
+                        .patch("/api/products/price_1Nwo6FLSqeSGrFJihDSgcK47")
                         .send(update)
                         .expect(201)
                         .then(({ body }) => {
@@ -341,7 +343,7 @@ const inputProduct = {
                     test("status 200 - changes description of a product correctly and returns the updated product ", () => {
                         const update = { body:"A handmdade vase" };
                         return request(app)
-                            .patch("/api/products/1")
+                            .patch("/api/products/price_1Nwo6FLSqeSGrFJihDSgcK47")
                             .send(update)
                             .expect(201)
                             .then(({ body }) => {
@@ -374,7 +376,7 @@ const inputProduct = {
                               inventory:0,
                               price:5.00 };
                             return request(app)
-                                .patch("/api/productsupdate/1")
+                                .patch("/api/productsupdate/price_1Nwo6FLSqeSGrFJihDSgcK47")
                                 .send(update)
                                 .expect(201)
                                 .then(({ body }) => {
@@ -418,7 +420,7 @@ const inputProduct = {
                             describe(". DELETE /api/products/:product_id",()=>{
                                 test("Status 204 ,deletes product and returns 204 status, checks the array has removed one comment",()=>{
                                     return request(app)
-                                    .delete("/api/products/1")
+                                    .delete("/api/products/price_1Nwo6FLSqeSGrFJihDSgcK47")
                                     .expect(204);
                                         
                                 })

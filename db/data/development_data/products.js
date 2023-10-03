@@ -1,5 +1,5 @@
 module.exports = [
-    {
+    {product_id:'price_1Nwo6FLSqeSGrFJihDSgcK47',
       title: 'Lovely Vase',
       topic: 'vases',
       author: 'Sammy',
@@ -12,7 +12,7 @@ module.exports = [
         inventory:0,
         price:40.00
     },
-    {
+    {product_id:'price_1Nwo6FLSqeSGrFJihDSgcK47',
         title: 'Lovely cup',
         topic: 'tableware',
         author: 'Sammy',

@@ -44,7 +44,7 @@ const seed = ({  adminsData, categoriesData, usersData, productsData }) => {
     .then(() => {
       return db.query(`
       CREATE TABLE products (
-        product_id SERIAL PRIMARY KEY,
+        product_id VARCHAR NOT NULL,
         title VARCHAR NOT NULL,
         topic VARCHAR NOT NULL REFERENCES categories (slug),
         author VARCHAR NOT NULL REFERENCES admins(adminName),
@@ -90,9 +90,10 @@ const seed = ({  adminsData, categoriesData, usersData, productsData }) => {
     .then(() => {
       const formattedProductData = productsData.map(convertTimestampToDate);
       const insertProductsQueryStr = format(
-        'INSERT INTO products (title, topic, author, body, created_at, likes, article_img_url, more_images, inventory, price) VALUES %L RETURNING *;',
+        'INSERT INTO products (product_id,title, topic, author, body, created_at, likes, article_img_url, more_images, inventory, price) VALUES %L RETURNING *;',
         formattedProductData.map(
           ({
+            product_id,
             title,
             topic,
             author,
@@ -103,7 +104,7 @@ const seed = ({  adminsData, categoriesData, usersData, productsData }) => {
             more_images,
             inventory, 
             price
-          }) => [title, topic, author, body, created_at, likes, article_img_url, more_images, inventory, price]
+          }) => [product_id,title, topic, author, body, created_at, likes, article_img_url, more_images, inventory, price]
         )
       );
 
