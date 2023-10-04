@@ -1,5 +1,5 @@
 module.exports = [
-    {product_id:'price_1Nwo6FLSqeSGrFJihDSgcK47',
+    {product_id:'price_1Nwo5KLSqeSGrFJijG5Y7H1u',
       title: 'Lovely Vase',
       topic: 'vases',
       author: 'Sammy',
