@@ -4,7 +4,7 @@ module.exports = [
       title: 'Lovely Vase',
       topic: 'vases',
       author: 'Sammy',
-      body: 'This isa great handmade vase.',
+      body: 'This is a great handmade vase.',
       created_at: 1604728980000,
       likes: 0,
       article_img_url:
