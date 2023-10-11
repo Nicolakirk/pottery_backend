@@ -238,6 +238,18 @@ product_id:"price_1Nwo6FLSqeSGrFJihDSgcK48",
                 })
             })
            })
+           describe ("get/api/admins/adminname",()=>{
+            test("status 404, responds with an error message if name not found",()=>{
+                return request(app)
+                .get("/api/admins/nicola")
+                .expect(404)
+                .then(({body})=>{
+                    
+                        expect(body.msg).toBe("user/password can not be found");
+                    })
+                })
+            })
+           
            describe("ORDER asc/desc for sort_by queries on /api/products", () => {
             it("200: returns array of products in decending order for specified colum", () => {
               return request(app)

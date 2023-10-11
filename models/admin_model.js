@@ -18,7 +18,7 @@ exports.selectAdminsbyId =(id)=>{
         if(result.rows.length === 0 ){
             return Promise.reject({
                 status:404,
-                msg:"Product can not be found",
+                msg:"user/password can not be found",
               })
              
         }else{
