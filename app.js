@@ -9,7 +9,7 @@ const { getUsers, getUsersById } = require("./controllers/user_controller");
 const { getAdmins, getAdminsById } = require("./controllers/admin_controllers");
 const { getCategories } = require("./controllers/category_controllers");
 const { endpoints } = require("./controllers/api_controller");
-const { getCheckout } = require("./controllers/checkout_controller");
+
 
 app.use(cors());
 app.use(express.json());
@@ -29,7 +29,7 @@ app.patch("/api/productsupdate/:product_id", patchAllForProducts)
 app.get("/api/categories", getCategories)
 app.delete("/api/products/:product_id", deleteProduct)
 
-app.post("/checkout", getCheckout)
+
 
 app.use(badRoute);
 app.use(handleCustomErrors);
