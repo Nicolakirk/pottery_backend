@@ -37,6 +37,45 @@ module.exports = [
           more_images:'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
           inventory:0,
           price:15.00
-      },
+      },  
+      {product_id:'price_1OXRABLSqeSGrFJiQMKI77sJ',
+      title: 'small bowl',
+      topic: 'tableware',
+      author: 'Sammy',
+      body: 'This is a great handmade bowl.',
+      created_at: 1604728980000,
+      likes: 0,
+      article_img_url:
+        'https://media.istockphoto.com/id/1364170881/photo/ceramic-tableware-empty-craft-ceramic-clay-plates-and-cups.jpg?s=612x612&w=0&k=20&c=zH4HPOlm0kGQD_00S0-RVQA9X6CAmMCN4XqHq_UE6KE=',
+        more_images:'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
+        inventory:0,
+        price:10.00
+    },
+    {product_id:'price_1OXRAgLSqeSGrFJiJRKZvdQU',
+    title: 'large vase',
+    topic: 'vases',
+    author: 'Sammy',
+    body: 'Large patterned vase.',
+    created_at: 1604728980000,
+    likes: 0,
+    article_img_url:
+      'https://images.pexels.com/photos/6611317/pexels-photo-6611317.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      more_images:'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
+      inventory:0,
+      price:30.00
+  },
+  {product_id:'price_1OXRJtLSqeSGrFJiRlktK5Op',
+    title: 'medium vase',
+    topic: 'vases',
+    author: 'Sammy',
+    body: 'medium sized cool patterned vase.',
+    created_at: 1604728980000,
+    likes: 0,
+    article_img_url:
+      'https://images.pexels.com/photos/6611317/pexels-photo-6611317.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      more_images:'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?w=700&h=700',
+      inventory:0,
+      price:20.00
+  },
     
     ]
