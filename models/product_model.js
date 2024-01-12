@@ -105,7 +105,7 @@ if (!topic){
 
 exports.checkTopicExists = (topic) => {
 
-  return db.query(` SELECT * FROM topics WHERE slug = $1`, [topic])
+  return db.query(` SELECT * FROM categories WHERE slug = $1`, [topic])
     .then((result)=>{
   
   if(result.rowCount === 0){

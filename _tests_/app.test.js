@@ -437,3 +437,16 @@ product_id:"price_1Nwo6FLSqeSGrFJihDSgcK48",
                                         
                                 })
                             })
+                            describe("return sort_by queries on /api/products", () => {
+                                it("200: returns array of products in ascending order for specified topic", () => {
+                                  return request(app)
+                                    .get("/api/products?topic=vases")
+                                    .expect(200)
+                                    .then(({ body }) => {
+                                        console.log(body)
+                                      const { products} = body;
+                                      expect(products).toBeInstanceOf(Array);
+                                      expect(products).toHaveLength(1);
+                                    })   
+                                });
+                            })
